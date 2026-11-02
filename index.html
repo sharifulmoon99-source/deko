@@ -1,78 +1,91 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DECO Premium - Owner 01814054202</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DECO PRO V2 - 01814054202</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-<style>
-body{font-family:'Space Grotesk',sans-serif;background:#0a0a0b;color:#e5e7eb}
-.glass{background:rgba(255,255,255,0.06);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.08)}
-.neon{box-shadow:0 0 20px rgba(132,255,0,0.35)}
-</style>
+<style>body{font-family:system-ui;background:#0a0a0b;color:#e5e7eb} .glass{background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08)}</style>
 </head>
-<body class="p-4 md:p-6">
-<!-- HEADER -->
-<div class="glass rounded-[20px] p-4 flex justify-between items-center max-w-[1200px] mx-auto">
-<div class="flex gap-3 items-center">
-<div class="w-10 h-10 rounded-full bg-[#84ff00] flex items-center justify-center text-black font-bold">D</div>
-<div><h1 class="font-bold text-xl leading-none">DECO Marketing</h1><p class="text-xs opacity-60">Sales Manager • Premium</p></div>
-</div>
-<span class="glass rounded-full px-3 py-1 text-xs">Owner <b class="text-[#84ff00] ml-1">01814054202</b></span>
-</div>
+<body class="p-3">
+<div class="glass rounded-xl p-3 flex justify-between max-w-[1250px] mx-auto"><b>DECO PRO V2</b><span class="text-[#84ff00]">Owner: 01814054202</span></div>
 
-<div class="max-w-[1200px] mx-auto mt-6 grid grid-cols-12 gap-4">
-<div class="col-span-12 lg:col-span-8 space-y-4">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-<div class="glass rounded-2xl p-4"><p class="text-xs opacity-60">Total Sales</p><h2 class="text-2xl font-bold mt-1" id="tSale">0 ৳</h2></div>
-<div class="glass rounded-2xl p-4"><p class="text-xs opacity-60">Revenue</p><h2 class="text-2xl font-bold mt-1" id="tProfit">0 ৳</h2></div>
-<div class="glass rounded-2xl p-4"><p class="text-xs opacity-60">Due</p><h2 class="text-2xl font-bold mt-1" id="tDue">0 ৳</h2></div>
-<div class="glass rounded-2xl p-4"><p class="text-xs opacity-60">Orders</p><h2 class="text-2xl font-bold mt-1" id="tOrders">0</h2></div>
-</div>
-<div class="glass rounded-2xl p-5">
-<h3 class="font-bold">Recent Sales</h3>
-<table class="w-full text-sm mt-3"><thead class="opacity-60 text-xs"><tr><th class="text-left py-2">Customer + Number</th><th>Product</th><th>Amount</th><th>Status</th></tr></thead><tbody id="saleBody"></tbody></table>
-</div>
-</div>
-
+<div class="max-w-[1250px] mx-auto grid grid-cols-12 gap-3 mt-3">
 <div class="col-span-12 lg:col-span-4">
-<div class="glass rounded-2xl p-5">
-<h2 class="text-[#84ff00] font-bold text-xl">Sales Entry Form</h2>
-<input id="date" type="date" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-4 text-sm">
-<input id="client" type="text" placeholder="Customer Name *" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-3 text-sm">
-<input id="cphone" type="tel" placeholder="কাস্টমার নাম্বার (ফাঁকা রাখলাম) *" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-3 text-sm outline-none focus:border-[#84ff00]">
-<input id="product" type="text" placeholder="Product Name" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-3 text-sm">
-<input id="price" type="number" placeholder="Amount (৳) *" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-3 text-sm">
-<select id="status" class="w-full bg-black/30 border border-white/10 rounded-xl p-3 mt-3 text-sm"><option>Paid</option><option>Due</option></select>
-<button onclick="addSale()" class="w-full bg-[#84ff00] text-black font-bold rounded-xl py-3 mt-4 neon">Submit Sale</button>
-<button onclick="sendWA()" class="w-full bg-[#25D366] text-black font-bold rounded-xl py-3 mt-2">📲 WhatsApp Bill পাঠাও</button>
+<div class="glass rounded-xl p-4">
+<h2 class="text-[#84ff00] font-bold">নতুন বিক্রি + 10 পণ্য</h2>
+<input id="date" type="date" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-3 text-sm">
+<input id="client" type="text" placeholder="Customer Name" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
+<input id="cphone" type="tel" placeholder="কাস্টমার নাম্বার" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
+
+<div id="productList" class="mt-3 space-y-2"></div>
+<button onclick="addProductRow()" class="w-full glass rounded-lg py-2 mt-2 text-xs">+ আরেকটা পণ্য যোগ করো (10টা পর্যন্ত)</button>
+
+<div class="mt-3 p-3 bg-black/40 rounded-lg flex justify-between"><b>মোট:</b><b id="grandTotal" class="text-[#84ff00] text-xl">0 ৳</b></div>
+<select id="status" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm"><option>Paid</option><option>Due</option></select>
+<button onclick="saveSale()" class="w-full bg-[#84ff00] text-black font-bold rounded-lg py-3 mt-3">Save Sale</button>
+</div>
+
+<div class="glass rounded-xl p-3 mt-3">
+<p class="text-xs font-bold">তারিখ অনুযায়ী বিক্রি দেখো</p>
+<input id="filterDate" type="date" onchange="render()" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
+<button onclick="document.getElementById('filterDate').value='';render()" class="text-xs opacity-60 mt-1">সব দেখাও</button>
+<h3 class="mt-2 font-bold">ওই দিন বিক্রি: <span id="dayTotal" class="text-[#84ff00]">0 ৳</span></h3>
+</div>
+</div>
+
+<div class="col-span-12 lg:col-span-8">
+<div class="grid grid-cols-3 gap-2">
+<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">মোট বিক্রি</p><h2 id="tSale" class="font-bold">0 ৳</h2></div>
+<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">বাকি</p><h2 id="tDue" class="font-bold text-yellow-400">0 ৳</h2></div>
+<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">অর্ডার</p><h2 id="tOrders" class="font-bold">0</h2></div>
+</div>
+<div class="glass rounded-xl p-3 mt-3 overflow-auto">
+<table class="w-full text-xs"><thead class="opacity-60"><tr><th class="text-left py-2">তারিখ / কাস্টমার</th><th>পণ্য (10টা)</th><th>টোটাল</th><th>Action</th></tr></thead><tbody id="saleBody"></tbody></table>
 </div>
 </div>
 </div>
 
 <script>
-let sales=JSON.parse(localStorage.getItem('deco_premium')||'[]');
+let sales=JSON.parse(localStorage.getItem('deco_v2')||'[]');
+let products=[];
 const $=id=>document.getElementById(id);
 $('date').valueAsDate=new Date();
-function addSale(){
- if(!$('client').value||!$('cphone').value||!$('price').value) return alert('নাম, কাস্টমার নাম্বার, টাকা লাগবে বস!');
- sales.push({id:Date.now(), date:$('date').value, client:$('client').value, cphone:$('cphone').value, product:$('product').value, price:+$('price').value, status:$('status').value});
- localStorage.setItem('deco_premium',JSON.stringify(sales)); render();
+function addProductRow(){
+ if(products.length>=10) return alert('10টার বেশি না বস!');
+ products.push({name:'', price:0, qty:1});
+ renderProducts();
+}
+function renderProducts(){
+ let html=''; let total=0;
+ products.forEach((p,i)=>{
+  total+= (p.price*p.qty);
+  html+=`<div class="flex gap-1"><input placeholder="পণ্য ${i+1}" value="${p.name}" oninput="products[${i}].name=this.value" class="w-[45%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><input type="number" placeholder="দাম" value="${p.price||''}" oninput="products[${i}].price=+this.value;renderProducts()" class="w-[25%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><input type="number" placeholder="Qty" value="${p.qty}" min=1 oninput="products[${i}].qty=+this.value;renderProducts()" class="w-[20%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><button onclick="products.splice(${i},1);renderProducts()" class="text-red-400">x</button></div>`;
+ });
+ $('productList').innerHTML=html||'<p class="text-xs opacity-50">একটা পণ্য যোগ করো</p>';
+ $('grandTotal').innerText=total+' ৳';
+}
+function saveSale(){
+ let total=products.reduce((s,p)=>s+(p.price*p.qty),0);
+ if(!$('client').value||!$('cphone').value||total==0) return alert('নাম, নাম্বার, পণ্য লাগবে!');
+ sales.push({id:Date.now(), date:$('date').value, client:$('client').value, cphone:$('cphone').value, items:[...products], total, status:$('status').value});
+ localStorage.setItem('deco_v2',JSON.stringify(sales)); products=[]; renderProducts(); render();
 }
 function render(){
- let t=0,d=0,html='';
- sales.slice().reverse().forEach(s=>{t+=s.price; if(s.status==='Due') d+=s.price;
- html+=`<tr class="border-t border-white/5"><td class="py-3">${s.client}<br><small class="opacity-50">${s.cphone}</small></td><td>${s.product}</td><td>${s.price}৳</td><td><span class="px-2 py-1 rounded-full text-xs ${s.status==='Paid'?'bg-[#84ff00] text-black':'bg-yellow-400 text-black'}">${s.status}</span></td></tr>`;});
- $('saleBody').innerHTML=html||'<tr><td colspan=4 class="py-4 opacity-50">No sales yet</td></tr>';
- $('tSale').innerText=t+' ৳'; $('tDue').innerText=d+' ৳'; $('tOrders').innerText=sales.length; $('tProfit').innerText=Math.round(t*0.8)+' ৳';
+ let filter=$('filterDate').value;
+ let list= filter? sales.filter(s=>s.date===filter): sales;
+ let html=''; let t=0,d=0,dayT=0;
+ sales.forEach(s=>{t+=s.total; if(s.status==='Due') d+=s.total});
+ list.slice().reverse().forEach(s=>{
+  if(filter) dayT+=s.total;
+  let itemNames=s.items.map(i=>`${i.name}(${i.qty}x${i.price})`).join('<br>');
+  html+=`<tr class="border-t border-white/5"><td class="py-2">${s.date}<br><b>${s.client}</b><br><small>${s.cphone}</small></td><td>${itemNames}</td><td><b>${s.total}৳</b><br><small class="${s.status==='Paid'?'text-green-400':'text-yellow-400'}">${s.status}</small></td><td><button onclick="markPaid(${s.id})" class="bg-green-500 text-black px-2 py-1 rounded text-[10px]">Paid করো</button><br><button onclick="del(${s.id})" class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-[10px] mt-1">মুছো</button><br><a href="https://wa.me/88${s.cphone}?text=${encodeURIComponent('Hi '+s.client+', বিল '+s.total+'৳ - DECO 01814054202')}" target="_blank" class="text-[10px] text-[#25D366]">WA</a></td></tr>`;
+ });
+ $('saleBody').innerHTML=html||'<tr><td colspan=4 class="py-4 opacity-50">No sales</td></tr>';
+ $('tSale').innerText=t+' ৳'; $('tDue').innerText=d+' ৳'; $('tOrders').innerText=sales.length; $('dayTotal').innerText= (filter?dayT:t)+' ৳';
 }
-function sendWA(){
- let p=$('cphone').value; if(!p) return alert('কাস্টমার নাম্বার লিখো!'); 
- let msg=`Hi ${$('client').value}, আপনার বিল ${$('price').value}৳ - DECO, NEXA WARE (Owner: 01814054202)`;
- window.open(`https://wa.me/88${p}?text=${encodeURIComponent(msg)}`,'_blank');
-}
-render();
+function markPaid(id){ let s=sales.find(x=>x.id===id); if(s){s.status='Paid'; localStorage.setItem('deco_v2',JSON.stringify(sales)); render();}}
+function del(id){ if(confirm('মুছবে?')){sales=sales.filter(x=>x.id!==id); localStorage.setItem('deco_v2',JSON.stringify(sales)); render();}}
+addProductRow(); render();
 </script>
 </body>
 </html>
