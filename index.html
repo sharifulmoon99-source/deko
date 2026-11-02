@@ -2,90 +2,112 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DECO PRO V2 - 01814054202</title>
+<title>DECO SR - 01814054202</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body{font-family:system-ui;background:#0a0a0b;color:#e5e7eb} .glass{background:rgba(255,255,255,0.06);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.08)}</style>
+<style>body{background:#f5f5f7}</style>
 </head>
-<body class="p-3">
-<div class="glass rounded-xl p-3 flex justify-between max-w-[1250px] mx-auto"><b>DECO PRO V2</b><span class="text-[#84ff00]">Owner: 01814054202</span></div>
-
-<div class="max-w-[1250px] mx-auto grid grid-cols-12 gap-3 mt-3">
-<div class="col-span-12 lg:col-span-4">
-<div class="glass rounded-xl p-4">
-<h2 class="text-[#84ff00] font-bold">নতুন বিক্রি + 10 পণ্য</h2>
-<input id="date" type="date" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-3 text-sm">
-<input id="client" type="text" placeholder="Customer Name" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
-<input id="cphone" type="tel" placeholder="কাস্টমার নাম্বার" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
-
-<div id="productList" class="mt-3 space-y-2"></div>
-<button onclick="addProductRow()" class="w-full glass rounded-lg py-2 mt-2 text-xs">+ আরেকটা পণ্য যোগ করো (10টা পর্যন্ত)</button>
-
-<div class="mt-3 p-3 bg-black/40 rounded-lg flex justify-between"><b>মোট:</b><b id="grandTotal" class="text-[#84ff00] text-xl">0 ৳</b></div>
-<select id="status" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm"><option>Paid</option><option>Due</option></select>
-<button onclick="saveSale()" class="w-full bg-[#84ff00] text-black font-bold rounded-lg py-3 mt-3">Save Sale</button>
+<body class="max-w-[500px] mx-auto bg-white min-h-screen shadow-lg">
+<!-- HEADER তোমার মতো -->
+<div class="p-4 border-b flex justify-between items-start">
+<div>
+<h1 class="text-2xl font-black">DECO</h1>
+<p id="dateTime" class="text-[11px] opacity-60 mt-1"></p>
 </div>
-
-<div class="glass rounded-xl p-3 mt-3">
-<p class="text-xs font-bold">তারিখ অনুযায়ী বিক্রি দেখো</p>
-<input id="filterDate" type="date" onchange="render()" class="w-full bg-black/30 border border-white/10 rounded-lg p-2 mt-2 text-sm">
-<button onclick="document.getElementById('filterDate').value='';render()" class="text-xs opacity-60 mt-1">সব দেখাও</button>
-<h3 class="mt-2 font-bold">ওই দিন বিক্রি: <span id="dayTotal" class="text-[#84ff00]">0 ৳</span></h3>
+<div class="text-right">
+<p class="text-xs opacity-60">SR Number</p>
+<a href="tel:01814054202" class="font-bold text-blue-600">01814054202</a>
 </div>
 </div>
 
-<div class="col-span-12 lg:col-span-8">
-<div class="grid grid-cols-3 gap-2">
-<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">মোট বিক্রি</p><h2 id="tSale" class="font-bold">0 ৳</h2></div>
-<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">বাকি</p><h2 id="tDue" class="font-bold text-yellow-400">0 ৳</h2></div>
-<div class="glass rounded-xl p-3"><p class="text-xs opacity-60">অর্ডার</p><h2 id="tOrders" class="font-bold">0</h2></div>
+<div class="p-4 space-y-3">
+<!-- দোকানের ইনফো -->
+<input id="shopName" placeholder="দোকানের নাম" class="w-full border rounded-xl p-3 text-sm">
+<div class="flex gap-2">
+<input id="shopNumber" placeholder="দোকান নাম্বার" class="w-1/2 border rounded-xl p-3 text-sm">
+<input id="location" placeholder="লোকেশন (কলাতলী)" class="w-1/2 border rounded-xl p-3 text-sm">
 </div>
-<div class="glass rounded-xl p-3 mt-3 overflow-auto">
-<table class="w-full text-xs"><thead class="opacity-60"><tr><th class="text-left py-2">তারিখ / কাস্টমার</th><th>পণ্য (10টা)</th><th>টোটাল</th><th>Action</th></tr></thead><tbody id="saleBody"></tbody></table>
+
+<!-- পণ্য বাটন -->
+<button onclick="document.getElementById('productBox').classList.toggle('hidden')" class="w-full bg-black text-white rounded-xl py-3 font-bold">+ পণ্য সিলেক্ট করো</button>
+
+<!-- পণ্য লিস্ট - তুমি এখানে নাম চেঞ্জ করবে -->
+<div id="productBox" class="hidden border rounded-xl p-2 space-y-2 max-h-[300px] overflow-auto">
 </div>
+
+<!-- অটো বাউচার -->
+<div class="border-2 border-dashed rounded-xl p-3">
+<h3 class="font-bold text-sm">বাউচার</h3>
+<div id="voucher" class="text-sm mt-2 space-y-1"></div>
+<div class="flex justify-between font-black text-lg border-t mt-2 pt-2"><span>মোট:</span><span id="total">0 ৳</span></div>
 </div>
+
+<button onclick="saveToSheet()" class="w-full bg-[#84ff00] text-black font-black rounded-xl py-4">Save & Google Sheet এ পাঠাও</button>
+<p id="msg" class="text-center text-xs mt-2"></p>
 </div>
 
 <script>
-let sales=JSON.parse(localStorage.getItem('deco_v2')||'[]');
-let products=[];
-const $=id=>document.getElementById(id);
-$('date').valueAsDate=new Date();
-function addProductRow(){
- if(products.length>=10) return alert('10টার বেশি না বস!');
- products.push({name:'', price:0, qty:1});
- renderProducts();
+// 1. তোমার পণ্য এখানে এড করো - নাম ও দাম চেঞ্জ করো বস
+let products = [
+ {name:"DECO 1L Paint", price:250},
+ {name:"DECO 5L Paint", price:1100},
+ {name:"DECO Brush 2inch", price:80},
+ {name:"DECO Roller", price:150},
+ {name:"DECO Primer 1L", price:220},
+ {name:"DECO Wall Putty 5kg", price:450},
+ {name:"DECO Enamel 1L", price:380},
+ {name:"DECO Thinner 1L", price:180},
+ {name:"DECO Tape", price:30},
+ {name:"DECO Sand Paper", price:15}
+];
+let selected = [];
+// তারিখ ও টাইম অটো
+setInterval(()=>{ document.getElementById('dateTime').innerText = new Date().toLocaleString('bn-BD', {dateStyle:'full', timeStyle:'medium'}); },1000);
+
+// পণ্য দেখানো
+let box=document.getElementById('productBox');
+products.forEach((p,i)=>{
+ box.innerHTML+=`<div class="flex justify-between items-center border rounded-lg p-2"><span class="text-sm"><b>${p.name}</b><br><small>${p.price}৳</small></span><div class="flex items-center gap-2"><button onclick="changeQty(${i},-1)" class="w-7 h-7 border rounded">-</button><span id="q${i}" class="w-6 text-center text-sm">0</span><button onclick="changeQty(${i},1)" class="w-7 h-7 bg-black text-white rounded">+</button></div></div>`;
+});
+function changeQty(i, d){
+ let q = document.getElementById('q'+i);
+ let qty = parseInt(q.innerText)+d; if(qty<0) qty=0; q.innerText=qty;
+ selected[i]=qty; renderVoucher();
 }
-function renderProducts(){
+function renderVoucher(){
  let html=''; let total=0;
- products.forEach((p,i)=>{
-  total+= (p.price*p.qty);
-  html+=`<div class="flex gap-1"><input placeholder="পণ্য ${i+1}" value="${p.name}" oninput="products[${i}].name=this.value" class="w-[45%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><input type="number" placeholder="দাম" value="${p.price||''}" oninput="products[${i}].price=+this.value;renderProducts()" class="w-[25%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><input type="number" placeholder="Qty" value="${p.qty}" min=1 oninput="products[${i}].qty=+this.value;renderProducts()" class="w-[20%] bg-black/30 border border-white/10 rounded-lg p-2 text-xs"><button onclick="products.splice(${i},1);renderProducts()" class="text-red-400">x</button></div>`;
+ selected.forEach((qty,i)=>{
+  if(qty>0){ let p=products[i]; let sub=p.price*qty; total+=sub; html+=`<div class="flex justify-between"><span>${p.name} x ${qty}</span><span>${sub}৳</span></div>`;}
  });
- $('productList').innerHTML=html||'<p class="text-xs opacity-50">একটা পণ্য যোগ করো</p>';
- $('grandTotal').innerText=total+' ৳';
+ document.getElementById('voucher').innerHTML=html||'<small class="opacity-50">কোন পণ্য সিলেক্ট করো নাই</small>';
+ document.getElementById('total').innerText=total+' ৳';
 }
-function saveSale(){
- let total=products.reduce((s,p)=>s+(p.price*p.qty),0);
- if(!$('client').value||!$('cphone').value||total==0) return alert('নাম, নাম্বার, পণ্য লাগবে!');
- sales.push({id:Date.now(), date:$('date').value, client:$('client').value, cphone:$('cphone').value, items:[...products], total, status:$('status').value});
- localStorage.setItem('deco_v2',JSON.stringify(sales)); products=[]; renderProducts(); render();
+
+// 2. GOOGLE SHEET এ পাঠানো - নিচে লিংক বসাতে হবে
+async function saveToSheet(){
+ let totalText=document.getElementById('total').innerText;
+ let vouch=document.getElementById('voucher').innerText;
+ if(!document.getElementById('shopName').value) return alert('দোকানের নাম দাও');
+ // তোমার Google Apps Script লিংক এখানে বসবে
+ let SCRIPT_URL = "YOUR_GOOGLE_SCRIPT_URL_HERE"; 
+ if(SCRIPT_URL.includes("YOUR_")){
+   alert('বস আগে Google Sheet লিংক বসাতে হবে, নিচে নিয়ম দেখো');
+   return;
+ }
+ document.getElementById('msg').innerText='পাঠানো হচ্ছে...';
+ let data = {
+  date: new Date().toLocaleString(),
+  shop: document.getElementById('shopName').value,
+  number: document.getElementById('shopNumber').value,
+  location: document.getElementById('location').value,
+  voucher: vouch,
+  total: totalText,
+  sr: '01814054202'
+ };
+ await fetch(SCRIPT_URL, {method:'POST', mode:'no-cors', body:JSON.stringify(data)});
+ document.getElementById('msg').innerText='✅ Google Sheet এ জমা হয়েছে!';
+ // রিসেট
+ selected=[]; products.forEach((_,i)=>document.getElementById('q'+i).innerText=0); renderVoucher();
 }
-function render(){
- let filter=$('filterDate').value;
- let list= filter? sales.filter(s=>s.date===filter): sales;
- let html=''; let t=0,d=0,dayT=0;
- sales.forEach(s=>{t+=s.total; if(s.status==='Due') d+=s.total});
- list.slice().reverse().forEach(s=>{
-  if(filter) dayT+=s.total;
-  let itemNames=s.items.map(i=>`${i.name}(${i.qty}x${i.price})`).join('<br>');
-  html+=`<tr class="border-t border-white/5"><td class="py-2">${s.date}<br><b>${s.client}</b><br><small>${s.cphone}</small></td><td>${itemNames}</td><td><b>${s.total}৳</b><br><small class="${s.status==='Paid'?'text-green-400':'text-yellow-400'}">${s.status}</small></td><td><button onclick="markPaid(${s.id})" class="bg-green-500 text-black px-2 py-1 rounded text-[10px]">Paid করো</button><br><button onclick="del(${s.id})" class="bg-red-500/20 text-red-400 px-2 py-1 rounded text-[10px] mt-1">মুছো</button><br><a href="https://wa.me/88${s.cphone}?text=${encodeURIComponent('Hi '+s.client+', বিল '+s.total+'৳ - DECO 01814054202')}" target="_blank" class="text-[10px] text-[#25D366]">WA</a></td></tr>`;
- });
- $('saleBody').innerHTML=html||'<tr><td colspan=4 class="py-4 opacity-50">No sales</td></tr>';
- $('tSale').innerText=t+' ৳'; $('tDue').innerText=d+' ৳'; $('tOrders').innerText=sales.length; $('dayTotal').innerText= (filter?dayT:t)+' ৳';
-}
-function markPaid(id){ let s=sales.find(x=>x.id===id); if(s){s.status='Paid'; localStorage.setItem('deco_v2',JSON.stringify(sales)); render();}}
-function del(id){ if(confirm('মুছবে?')){sales=sales.filter(x=>x.id!==id); localStorage.setItem('deco_v2',JSON.stringify(sales)); render();}}
-addProductRow(); render();
 </script>
 </body>
 </html>
